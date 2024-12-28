@@ -13,3 +13,4 @@ $routes->get('login', 'Login::login');
 
 $routes->post('login/loginAction', 'Login::loginAction');
 
+$routes->get('register', 'Register::register');
