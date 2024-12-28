@@ -43,14 +43,27 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  * and fires up an environment-specific bootstrapping.
  */
 
-// LOAD OUR PATHS CONFIG FILE
-// This is the line that might need to be changed, depending on your folder structure.
-require FCPATH . '../app/Config/Paths.php';
-// ^^^ Change this line if you move your application folder
+ $pathsPath = realpath(__DIR__ . '/../app/Config/Paths.php');
 
+ if (! $pathsPath) {
+     header('HTTP/1.1 503 Service Unavailable.', true, 503);
+     echo 'The path to the "Paths.php" file does not appear to be set correctly.';
+     exit(1);
+ }
+ 
+ $pathsPath = realpath(__DIR__ . '/../app/Config/Paths.php');
+
+if (! $pathsPath) {
+    header('HTTP/1.1 503 Service Unavailable.', true, 503);
+    echo 'The path to the "Paths.php" file does not appear to be set correctly.';
+    exit(1);
+}
+
+// Load the paths config file
+require $pathsPath;
 $paths = new Config\Paths();
 
-// LOAD THE FRAMEWORK BOOTSTRAP FILE
-require $paths->systemDirectory . '/Boot.php';
+// Corrected line to include Boot.php
+require realpath($paths->systemDirectory) . '/Boot.php';
 
 exit(CodeIgniter\Boot::bootWeb($paths));
