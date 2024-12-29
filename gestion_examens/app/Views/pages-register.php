@@ -56,7 +56,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">My exams</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -77,17 +77,17 @@
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
+                      <div class="input-group has-validation">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
                     </div>
 
                     <div class="col-12">
@@ -103,10 +103,10 @@
 
                     <div class="col-12">
                       <!-- Champ Radio pour sélectionner Étudiant ou Professeur -->
-                      <label>Quel est votre statut ?</label><br>
-                      <input type="radio" id="student" name="status" value="étudiant" required>
+                      <label>Quel est votre role ?</label><br>
+                      <input type="radio" id="student" name="role" value="étudiant" required>
                       <label for="student">Étudiant</label><br>
-                      <input type="radio" id="teacher" name="status" value="professeur" required>
+                      <input type="radio" id="teacher" name="role" value="professeur" required>
                       <label for="teacher">Professeur</label><br><br>
                     </div>
     
