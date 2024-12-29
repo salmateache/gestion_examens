@@ -40,7 +40,11 @@
 </head>
 
 <body>
-
+<?php if(session()->getFlashdata('error')): ?>
+    <div style="color: red;">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?> 
   <main>
     <div class="container">
 
@@ -65,8 +69,7 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
+                  <form class="row g-3 needs-validation" method="POST" action="<?= base_url('register/createAccount'); ?>" novalidate>                    <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
@@ -106,14 +109,8 @@
                       <input type="radio" id="teacher" name="status" value="professeur" required>
                       <label for="teacher">Professeur</label><br><br>
                     </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
+    
+                  
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
