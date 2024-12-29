@@ -28,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -90,6 +91,20 @@
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+                    <div class="col-12">
+                      <label for="birthdate">Date de naissance :</label>
+                      <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                      <div class="invalid-feedback">Please enter your date of birth!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <!-- Champ Radio pour sélectionner Étudiant ou Professeur -->
+                      <label>Quel est votre statut ?</label><br>
+                      <input type="radio" id="student" name="status" value="étudiant" required>
+                      <label for="student">Étudiant</label><br>
+                      <input type="radio" id="teacher" name="status" value="professeur" required>
+                      <label for="teacher">Professeur</label><br><br>
                     </div>
 
                     <div class="col-12">
