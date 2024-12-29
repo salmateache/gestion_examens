@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 
 <head>
@@ -1188,3 +1189,15 @@
 </body>
 
 </html>
+=======
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>
+>>>>>>> 92ff18ca650cc92600bda0c4cd4298f0ccc5ff9d
