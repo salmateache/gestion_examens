@@ -4,57 +4,43 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LoginModel extends Model
+class RegisterModel extends Model
 {
-    // Nom de la table dans la base de données
-    protected $table = 'compte';
+    protected $table = 'utilisateur';
+    protected $primaryKey = 'idUtilisateur';
+    protected $allowedFields = ['nom_complet', 'email', 'dateNaissance', 'idRole'];
+    protected $useTimestamps = false;
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 
-    // Clé primaire de la table
-    protected $primaryKey = 'idCompte';
-
-    // Champs autorisés pour les insertions et mises à jour
-    protected $allowedFields = ['username', 'password', 'etat', 'idUtilisateur', 'idRole'];
-
-    // Définit les règles de validation pour les champs
+    // Règles de validation
     protected $validationRules = [
-        'username' => 'required|is_unique[compte.username]',  // Nom d'utilisateur requis et unique
-        'password' => 'required|min_length[6]',               // Mot de passe requis, min 6 caractères
+        'nom_complet' => 'required|string|max_length[100]',
+        'email' => 'required|valid_email|is_unique[utilisateur.email]',
+        'dateNaissance' => 'required|valid_date',
+        'idRole' => 'required|integer',
     ];
 
-    // Messages personnalisés pour la validation
     protected $validationMessages = [
-        'username' => [
-            'is_unique' => 'Le nom d\'utilisateur est déjà pris. Veuillez en choisir un autre.'
-        ],
+        'email' => [
+            'is_unique' => 'Cet email est déjà enregistré.'
+        ]
     ];
 
-    // Active la validation avant insertion ou mise à jour
-    protected $beforeInsert = ['hashPassword'];
-    protected $beforeUpdate = ['hashPassword'];
+    // Gestionnaires d'événements
+    protected $beforeInsert = ['setDefaultRole'];
 
-    /**
-     * Méthode pour hacher le mot de passe avant insertion ou mise à jour.
-     *
-     * @param array $data Données avant l'insertion/mise à jour.
-     * @return array Données avec le mot de passe haché.
-     */
-    protected function hashPassword(array $data)
+    protected function setDefaultRole(array $data)
     {
-        if (isset($data['data']['password'])) {
-            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+        if (!isset($data['data']['idRole'])) {
+            $data['data']['idRole'] = 2; // Rôle par défaut
         }
         return $data;
     }
 
-    /**
-     * Méthode pour vérifier le mot de passe lors de la connexion.
-     *
-     * @param string $password        Mot de passe saisi par l'utilisateur.
-     * @param string $storedPassword  Mot de passe haché dans la base de données.
-     * @return bool
-     */
-    public function validatePassword($password, $storedPassword)
-        {
-            return password_verify($password, $storedPassword);
-        }
+    // Vérifier si l'email existe déjà
+    public function emailExists($email)
+    {
+        return $this->where('email', $email)->first();
+    }
 }
