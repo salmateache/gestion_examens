@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title>Register</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -39,7 +40,11 @@
 </head>
 
 <body>
-
+<?php if(session()->getFlashdata('error')): ?>
+    <div style="color: red;">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?> 
   <main>
     <div class="container">
 
@@ -51,7 +56,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">My exams</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -64,8 +69,7 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
+                  <form class="row g-3 needs-validation" method="POST" action="<?= base_url('register/createAccount'); ?>" novalidate>                    <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
@@ -73,17 +77,17 @@
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
+                      <div class="input-group has-validation">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
                     </div>
 
                     <div class="col-12">
@@ -91,14 +95,22 @@
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
+                    <div class="col-12">
+                      <label for="birthdate">Date de naissance :</label>
+                      <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                      <div class="invalid-feedback">Please enter your date of birth!</div>
+                    </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
+                      <!-- Champ Radio pour sélectionner Étudiant ou Professeur -->
+                      <label>Quel est votre role ?</label><br>
+                      <input type="radio" id="student" name="role" value="étudiant" required>
+                      <label for="student">Étudiant</label><br>
+                      <input type="radio" id="teacher" name="role" value="professeur" required>
+                      <label for="teacher">Professeur</label><br><br>
                     </div>
+    
+                  
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
