@@ -15,3 +15,4 @@ $routes->post('login/loginAction', 'Login::loginAction');
 
 $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
+$routes->get('notes', 'Note::index');
