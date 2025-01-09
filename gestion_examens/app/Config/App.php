@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public $baseURL = 'http://localhost/gestion_examens/gestion_examens/gestion_examens/public/';
+    public $baseURL = 'http://localhost/GL/gestion_examens/gestion_examens/public/';
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
@@ -198,4 +198,9 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+    public $displayErrorDetails = true;
+
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'; // Ou 'DatabaseHandler'
+    public $sessionSavePath = WRITEPATH . 'session'; // Si vous utilisez FileHandler, assurez-vous que ce répertoire existe
+
 }

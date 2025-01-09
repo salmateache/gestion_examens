@@ -17,4 +17,7 @@ $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
 $routes->get('notes', 'Note::index');
 $routes->get('profile', 'Profile::index');
+// Afficher le profil du professeur
+$routes->get('professeur', 'ProfesseurController::index');
+
 
