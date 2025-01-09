@@ -46,18 +46,19 @@ class Login extends BaseController
         // Comparer le mot de passe saisi avec le mot de passe haché stocké
         if (password_verify($password, $user['password'])) {
             log_message('debug', "Password is correct.");
-
+        
             // Authentification réussie, démarrer la session
-            session()->set('user_id', $user['idCompte']); // Utilise idCompte comme clé primaire
+            session()->set('idUtilisateur', $user['idCompte']); // Harmonisation avec ProfesseurController
             session()->set('username', $user['username']);
-            session()->set('role', $user['idRole']); // Stocke également le rôle si nécessaire
-
+            session()->set('role', $user['idRole']); // Si nécessaire
+        
             // Log pour vérifier la session
             log_message('debug', "User logged in: " . print_r(session()->get(), true));
-
+        
             // Rediriger vers le tableau de bord
             return redirect()->to('/dashboard');
-        } else {
+        }
+        else {
             log_message('debug', "Error: Password is incorrect.");
             // Si le mot de passe est incorrect
             return redirect()->back()->with('error', 'Invalid username or password.');
