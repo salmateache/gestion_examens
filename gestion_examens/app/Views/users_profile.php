@@ -339,16 +339,18 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                  <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                 </li>
 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                 </li>
 
-                
-
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#change_password">Change password </button>
+                </li>
               </ul>
+              
               <div class="tab-content pt-2">
               <?php if (isset($professeur) && !empty($professeur)): ?>
               <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -384,57 +386,89 @@
 
                   </div>
               </div>
-              <?php else: ?>
-                <p class="text-danger">Professeur introuvable.</p>
+          
+          
+<!-- Profile Edit Form -->
+<form action="<?= base_url('profile/update') ?>" method="post">
+  <div class="row mb-3">
+      <label for="First" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+      <div class="col-md-8 col-lg-9">
+          <input name="First" type="text" class="form-control" value="<?= $professeur['prenom'] ?>">
+      </div>
+  </div>
+
+  <div class="row mb-3">
+      <label for="Last" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+      <div class="col-md-8 col-lg-9">
+          <input name="Last" type="text" class="form-control" value="<?= $professeur['nom'] ?>">
+      </div>
+  </div>
+
+  <div class="row mb-3">
+      <label for="Department" class="col-md-4 col-lg-3 col-form-label">Department</label>
+      <div class="col-md-8 col-lg-9">
+          <input name="Department" type="text" class="form-control" value="<?= $professeur['departement'] ?>">
+      </div>
+  </div>
+
+  <div class="row mb-3">
+      <label for="modules" class="col-md-4 col-lg-3 col-form-label">Modules</label>
+      <div class="col-md-8 col-lg-9">
+          <input name="modules" type="text" class="form-control" value="<?= implode(', ', $modules) ?>" readonly>
+      </div>
+  </div>
+
+  <div class="row mb-3">
+      <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+      <div class="col-md-8 col-lg-9">
+          <input name="email" type="text" class="form-control" value="<?= $professeur['email'] ?>">
+      </div>
+  </div>
+
+  <div class="text-center">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+  </div>
+</form>
+<!-- End Profile Edit Form -->
+</div>
+
+<?php else: ?>
             <?php endif; ?>
+            <div class="tab-content pt-2">
+              <div class="tab-pane fade show active change_password" id="change_password">
 
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+<!-- Profile Edit Form -->
+<form action="<?= base_url('professeur/changePassword') ?>" method="post">
 
-                  <!-- Profile Edit Form -->
-                  <form action="<?= base_url('profile/update') ?>" method="post">
-                    <div class="row mb-3">
-                        <label for="First" class="col-md-4 col-lg-3 col-form-label">First Name</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="First" type="text" class="form-control" value="<?= $professeur['prenom'] ?>">
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="Last" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="Last" type="text" class="form-control" value="<?= $professeur['nom'] ?>">
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="Department" class="col-md-4 col-lg-3 col-form-label">Department</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="Department" type="text" class="form-control" value="<?= $professeur['departement'] ?>">
-                        </div>
-                    </div>
+<!-- Nouveau formulaire pour changer le mot de passe -->
+<div class="row mb-3">
+<label for="password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+<div class="col-md-8 col-lg-9">
+<input name="password" type="password" class="form-control" id="password" required>
+</div>
+</div>
 
-                    <div class="row mb-3">
-                        <label for="modules" class="col-md-4 col-lg-3 col-form-label">Modules</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="modules" type="text" class="form-control" value="<?= implode(', ', $modules) ?>" readonly>
-                        </div>
-                    </div>
+<div class="row mb-3">
+<label for="new_password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+<div class="col-md-8 col-lg-9">
+<input name="newpassword" type="password" class="form-control" id="newpassword" required>
+</div>
+</div>
 
-                    <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="email" type="text" class="form-control" value="<?= $professeur['email'] ?>">
-                        </div>
-                    </div>
+<div class="row mb-3">
+<label for="confirm_password" class="col-md-4 col-lg-3 col-form-label">Confirm New Password</label>
+<div class="col-md-8 col-lg-9">
+<input name="renewpassword" type="password" class="form-control" id="renewpassword" required>
+</div>
+</div>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-                  <!-- End Profile Edit Form -->
-                </div>
-
+<div class="text-center">
+<button type="submit" class="btn btn-primary">Save Changes</button>
+</div>
+</form>
               </div><!-- End Bordered Tabs -->
 
             </div>
@@ -442,6 +476,7 @@
 
         </div>
       </div>
+    
     </section>
 
   </main><!-- End #main -->

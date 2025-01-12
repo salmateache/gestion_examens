@@ -51,13 +51,30 @@ class ProfesseurModel extends Model
                 ->getResultArray();
     }
 
-    public function updatePassword($idUtilisateur, $newPassword)
-    {
-        $db = db_connect();
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+  
+public function updatePassword($idUtilisateur, $newPassword)
+{
+    // Récupérer une instance de la base de données via le modèle
+    $db = db_connect();
+    
+    // Hasher le nouveau mot de passe
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-        $db->table('compte')
-           ->where('idUtilisateur', $idUtilisateur)
-           ->update(['password' => $hashedPassword]);
+    // Utiliser la méthode `update` avec gestion d'erreur
+    $builder = $db->table('compte');
+
+    // Effectuer la mise à jour
+    $result = $builder->where('idUtilisateur', $idUtilisateur)
+                      ->update(['password' => $hashedPassword]);
+
+    // Vérifier si la mise à jour a réussi
+    if ($result === false) {
+        // Gestion des erreurs en cas d'échec de la mise à jour
+        return false;
     }
+
+    // Retourner true si tout s'est bien passé
+    return true;
+}
+
 }

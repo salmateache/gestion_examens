@@ -29,12 +29,45 @@ class RegisterModel extends Model
 
     // Gestionnaires d'événements
     protected $beforeInsert = ['setDefaultRole'];
+    protected $afterInsert = ['createProfesseur'];
 
     protected function setDefaultRole(array $data)
     {
         if (!isset($data['data']['idRole'])) {
-            $data['data']['idRole'] = 2; // Rôle par défaut
+            // Vérifie si le rôle est "professeur" (assurez-vous que 'role' est dans les données)
+            if (isset($data['data']['role']) && strtolower($data['data']['role']) === 'professeur') {
+                $data['data']['idRole'] = 1; // ID de rôle pour "professeur"
+            } else {
+                $data['data']['idRole'] = 2; // Rôle par défaut pour "étudiant"
+            }
         }
+
+        return $data;
+    }
+
+    // Insérer un professeur dans la table 'professeur' après l'insertion de l'utilisateur
+    protected function createProfesseur(array $data)
+    {
+        // Récupérer l'ID de l'utilisateur inséré
+        $idUtilisateur = $data['id'];
+
+        // Vérifier si l'utilisateur a le rôle de professeur
+        if (isset($data['data']['idRole']) && $data['data']['idRole'] === 1) {
+            // Données à insérer dans la table 'professeur'
+            $professeurData = [
+                'idUtilisateur' => $idUtilisateur,
+                'nom' => $data['data']['nom_complet'],  // Par exemple, vous pouvez diviser 'nom_complet' en nom et prénom si vous le souhaitez
+                'prenom' => '',  // Vous pouvez ajouter un champ spécifique pour le prénom si nécessaire
+                'email' => $data['data']['email'],
+                'date' => date('Y-m-d'),  // Date actuelle
+                'departement' => 'Informatique',  // Exemple de département, vous pouvez ajuster selon les besoins
+            ];
+
+            // Insérer dans la table professeur
+            $professeurModel = new ProfesseurModel();
+            $professeurModel->insert($professeurData);
+        }
+
         return $data;
     }
 
