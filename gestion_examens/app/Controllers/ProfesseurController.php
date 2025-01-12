@@ -66,6 +66,42 @@ class ProfesseurController extends Controller
         // Rediriger avec un message de succès
         return redirect()->to('/professeur/profile')->with('success', 'Profil mis à jour avec succès');
     }
+    public function changePassword()
+    {
+        $session = session();
+        $idUtilisateur = $session->get('idUtilisateur');
+    
+        // Vérifier que l'utilisateur est connecté
+        if (!$idUtilisateur) {
+            return redirect()->to('/login');
+        }
+    
+        // Charger le modèle
+        $professeurModel = new ProfesseurModel();
+    
+        // Récupérer les mots de passe du formulaire
+        $currentPassword = $this->request->getPost('password');
+        $newPassword = $this->request->getPost('newpassword');
+        $renewPassword = $this->request->getPost('renewpassword');
+    
+        // Vérifier le mot de passe actuel
+        if (!$professeurModel->verifyPassword($idUtilisateur, $currentPassword)) {
+            // Rediriger avec un message d'erreur
+            return redirect()->back()->with('error', 'Mot de passe actuel incorrect')->withInput();
+        }
+    
+        // Vérifier si les nouveaux mots de passe correspondent
+        if ($newPassword !== $renewPassword) {
+            // Rediriger avec un message d'erreur
+            return redirect()->back()->with('error', 'Les nouveaux mots de passe ne correspondent pas')->withInput();
+        }
+    
+        // Mettre à jour le mot de passe
+        $professeurModel->updatePassword($idUtilisateur, $newPassword);
+    
+        // Rediriger avec un message de succès
+        return redirect()->to('/dashboard')->with('success', 'Mot de passe changé avec succès');
+    }
 
     
 }
