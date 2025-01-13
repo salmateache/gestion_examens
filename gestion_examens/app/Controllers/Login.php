@@ -64,6 +64,14 @@ class Login extends BaseController
             return redirect()->back()->with('error', 'Invalid username or password.');
         }
     }
+    public function logout()
+    {
+        // Détruire la session
+        session()->destroy();
+
+        // Rediriger vers la page de connexion
+        return redirect()->to(base_url('login'));
+    }
     
 
  

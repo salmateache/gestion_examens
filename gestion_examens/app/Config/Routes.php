@@ -22,3 +22,5 @@ $routes->post('profile/update', 'Profile::update'); // Cette route Ã©tait doublÃ
 $routes->post('professeur/profile', 'ProfesseurController::profile');
 $routes->post('professeur/updateProfile', 'ProfesseurController::updateProfile');
 $routes->post('professeur/changePassword', 'ProfesseurController::changePassword');
+
+$routes->get('login/logout', 'Login::logout');

@@ -100,7 +100,7 @@ class ProfesseurController extends Controller
         $professeurModel->updatePassword($idUtilisateur, $newPassword);
     
         // Rediriger avec un message de succès
-        return redirect()->to('/dashboard')->with('success', 'Mot de passe changé avec succès');
+        return redirect()->to('/profile')->with('success', 'Mot de passe changé avec succès');
     }
 
     
