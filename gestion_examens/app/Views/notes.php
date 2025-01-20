@@ -10,7 +10,6 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -283,7 +282,7 @@
     </a>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="<?= base_url('notes'); ?>">
+    <a class="nav-link collapsed" href="<?= base_url('notes') ?> ">
       <i class="bi bi-person"></i>
       <span>Notes</span>
     </a>
@@ -299,70 +298,68 @@
 
 </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
+<main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Notes</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Filières</li>
-          <li class="breadcrumb-item">Modules</li>
-          <li class="breadcrumb-item active">Notes</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>Notes</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+       <li class="breadcrumb-item active">Notes</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Liste des étudiants</h5>
-                           <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                  <th>Module</th>
-                    <th>
-                   Examen
-                    </th>
-                    <th>Note</th>
-                    <th>Commentaire</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                <?php if (!empty($notes)): ?>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Liste des notes</h5>
+          
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th>Module</th>
+                <th>Examen</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (!empty($notes)): ?>
                 <?php foreach ($notes as $note): ?>
-                    <tr>
-                
-               
-                        <td><?= $note['libelleExamen']; ?></td>
-                        <td><?= $note['note']; ?></td>
-                        <td><?= $note['commentaire']; ?></td>
-                        <td><?= $note['nomModule']; ?></td>
-                
-                    </tr>
+                  <tr>
+                    <td><?= esc($note['nomModule']) ?></td>
+                    <td><?= esc($note['libelleExamen']) ?></td>
+                    <td><?= esc($note['note']) ?></td>
+                    <td><?= esc($note['commentaire']) ?></td>
+                    <td>
+                      <button class="btn btn-primary">Soumettre une réclamation</button>
+                    </td>
+                  </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
+              <?php else: ?>
                 <tr>
-                    <td colspan="6">Aucune note trouvée.</td>
+                  <td colspan="5" class="text-center">Aucune note disponible.</td>
                 </tr>
-            <?php endif; ?>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
-            </div>
-          </div>
+              <?php endif; ?>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
 
         </div>
       </div>
-    </section>
 
-  </main><!-- End #main -->
+    </div>
+  </div>
+</section>
+
+</main><!-- End #main -->
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
