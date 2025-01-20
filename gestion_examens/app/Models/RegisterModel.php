@@ -70,6 +70,37 @@ class RegisterModel extends Model
 
         return $data;
     }
+    protected function createEtudiant(array $data)
+        {
+            // Récupérer l'ID de l'utilisateur inséré
+            $idUtilisateur = $data['id'];
+
+            // Vérifier si l'utilisateur a le rôle d'étudiant (idRole === 2 ou un autre idRole si nécessaire)
+            if (isset($data['data']['idRole']) && $data['data']['idRole'] === 2) {
+                // Vérifier si l'idFiliere, nom, prenom, et email sont présents dans les données
+                if (isset($data['data']['idFiliere'], $data['data']['nom'], $data['data']['prenom'], $data['data']['email'])) {
+                    // Données à insérer dans la table 'etudiant'
+                    $etudiantData = [
+                        'idUtilisateur' => $idUtilisateur,
+                        'nom' => $data['data']['nom'],          // Récupérer le nom de l'étudiant
+                        'prenom' => $data['data']['prenom'],    // Récupérer le prénom de l'étudiant
+                        'email' => $data['data']['email'],      // Récupérer l'email de l'étudiant
+                        'idFiliere' => $data['data']['idFiliere'], // Récupérer l'ID de la filière
+                    ];
+
+                    // Insérer dans la table 'etudiant'
+                    $etudiantModel = new \App\Models\EtudiantModel();
+                    $etudiantModel->insert($etudiantData);
+                } else {
+                    // Si l'un des champs nécessaires n'est pas présent, on peut retourner une erreur ou une exception
+                    throw new \Exception("Les informations de l'étudiant (nom, prénom, email, et idFiliere) sont requises.");
+                }
+            } else {
+                // Si l'utilisateur n'a pas le rôle d'étudiant, on peut gérer l'erreur
+                throw new \Exception("L'utilisateur n'a pas le rôle d'étudiant.");
+            }
+        }
+
 
     // Vérifier si l'email existe déjà
     public function emailExists($email)

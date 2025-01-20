@@ -13,8 +13,6 @@ $routes->post('login/loginAction', 'Login::loginAction');
 
 $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
-$routes->get('notes', 'NoteController::index');
-$routes->get('notes', 'Note::index');
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update'); // Cette route était doublée
 
@@ -24,3 +22,5 @@ $routes->post('professeur/updateProfile', 'ProfesseurController::updateProfile')
 $routes->post('professeur/changePassword', 'ProfesseurController::changePassword');
 
 $routes->get('login/logout', 'Login::logout');
+
+$routes->get('/notes', 'Notes::index');
