@@ -10,6 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -323,23 +324,33 @@
               <table class="table datatable">
                 <thead>
                   <tr>
+                  <th>Module</th>
                     <th>
-                      <b>N</b>om d'étudiant
+                   Examen
                     </th>
                     <th>Note</th>
-                    <th>Action</th>
+                    <th>Commentaire</th>
                   </tr>
                 </thead>
                 <tbody>
                   
-                  <tr>
-                    <td>Teache Salma</td>
-                    <td>18</td>
-                    <td>
-                        <button class="btn btn-primary">Saisir</button>
-                        <button class="btn btn-warning">Modifier</button>
-                    </td>
-                  </tr>
+                <?php if (!empty($notes)): ?>
+                <?php foreach ($notes as $note): ?>
+                    <tr>
+                
+               
+                        <td><?= $note['libelleExamen']; ?></td>
+                        <td><?= $note['note']; ?></td>
+                        <td><?= $note['commentaire']; ?></td>
+                        <td><?= $note['nomModule']; ?></td>
+                
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Aucune note trouvée.</td>
+                </tr>
+            <?php endif; ?>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
