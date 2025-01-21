@@ -276,24 +276,32 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="<?= base_url('/dashboard'); ?>">
+    <a class="nav-link collapsed" href="<?= base_url('/dashboard'); ?>">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="<?= base_url('notes') ?> ">
-      <i class="bi bi-person"></i>
+    <i class="bi bi-grid"></i>
       <span>Notes</span>
     </a>
   </li><!-- End Profile Page Nav -->
 
   <li class="nav-item">
+        <a class="nav-link " href="<?= base_url('reclamations'); ?>">
+          <i class="bi bi-grid"></i>
+          <span>Réclamations</span>
+        </a>
+      </li>
+
+  <li class="nav-item">
     <a class="nav-link collapsed" href="<?= base_url('profile'); ?>">
-      <i class="bi bi-person"></i>
+    <i class="bi bi-grid"></i>
       <span>Profile</span>
     </a>
   </li><!-- End Profile Page Nav -->
+  
 </ul>
 
 </aside><!-- End Sidebar-->
@@ -341,7 +349,7 @@
                             <td>
                                 <?php 
                                     $statutClass = ''; // Par défaut, aucune classe
-                                    if ($reclamation['statut'] === 'en_attente') {
+                                    if ($reclamation['statut'] === 'En attente') {
                                         $statutClass = 'badge bg-warning text-dark'; // Jaune
                                     } elseif ($reclamation['statut'] === 'acceptee') {
                                         $statutClass = 'badge bg-success'; // Vert

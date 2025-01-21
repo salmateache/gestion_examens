@@ -284,23 +284,24 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="<?= base_url('notes'); ?>">
+        <a class="nav-link collapsed " href="<?= base_url('notes'); ?>">
           <i class="bi bi-grid"></i>
           <span>Notes</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="<?= base_url('profile'); ?>">
+        <a class="nav-link collapsed" href="<?= base_url('reclamations'); ?>">
+          <i class="bi bi-grid"></i>
+          <span>Réclamations</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?= base_url('profile'); ?>">
           <i class="bi bi-grid"></i>
           <span>Profile</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="<?= base_url('reclamations'); ?>">
-          <i class="bi bi-grid"></i>
-          <span>Récamations</span>
-        </a>
-      </li>
+     
 
 </ul>
 </aside>
