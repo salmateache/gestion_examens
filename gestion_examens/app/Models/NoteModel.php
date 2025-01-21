@@ -12,12 +12,15 @@ class NoteModel extends Model
 
     // Fonction pour récupérer les notes détaillées (avec module et examen)
     public function getDetailedNotesByEtudiant($idEtudiant)
-    {
-        return $this->select('module.nomModule, examen.libelleExamen, note.note, note.commentaire')
-            ->join('examen', 'examen.idExamen = note.idExamen')
-            ->join('module', 'module.idModule = examen.idModule')
-            ->where('note.idEtudiant', $idEtudiant)
-            ->findAll();
-    }
+        {
+            return $this->select('module.nomModule, examen.libelleExamen, note.note, note.commentaire, etudiant.idEtudiant') // jointure avec la table 'etudiant'
+                ->join('examen', 'examen.idExamen = note.idExamen')
+                ->join('module', 'module.idModule = examen.idModule')
+                ->join('etudiant', 'etudiant.idEtudiant = note.idEtudiant') // Ajoutez cette jointure si 'idEtudiant' est dans la table 'etudiant'
+                ->where('note.idEtudiant', $idEtudiant)
+                ->findAll();
+        }
+
+    
     
 }

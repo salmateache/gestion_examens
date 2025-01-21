@@ -8,19 +8,18 @@ class EtudiantModel extends Model
 {
     protected $table = 'etudiant';
     protected $primaryKey = 'idEtudiant';
-    protected $allowedFields = ['idUtilisateur', 'nom', 'prenom', 'email'];
-    // Désactiver les timestamps si non utilisés
-    protected $useTimestamps = false;
+    protected $allowedFields = ['idUtilisateur', 'nom', 'prenom', 'email', 'idFiliere']; // ✅ Ajout de idFiliere
+    protected $useTimestamps = false; // Désactiver si non utilisé
 
     /**
-     * Récupère tous les étudiants avec leurs informations d'utilisateur et de filière
+     * Récupère tous les étudiants avec leurs informations utilisateur et filière
      */
     public function getEtudiantsAvecDetails()
     {
         return $this->select('etudiant.idEtudiant, utilisateur.nom_complet, utilisateur.email, utilisateur.dateNaissance, filiere.nomFiliere')
                     ->join('utilisateur', 'utilisateur.idUtilisateur = etudiant.idUtilisateur')
-                    ->join('filiere', 'filiere.idFiliere = etudiant.idFiliere', 'left')
-                    ->where('utilisateur.idRole', 2)  // Filtrer pour ne prendre que les utilisateurs ayant idRole = 2
+                    ->join('filiere', 'filiere.idFiliere = etudiant.idFiliere', 'left') // ✅ Correction de la jointure
+                    ->where('utilisateur.idRole', 2) // ✅ Sélectionne uniquement les étudiants
                     ->findAll();
     }
 }

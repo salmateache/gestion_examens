@@ -24,3 +24,4 @@ $routes->post('professeur/changePassword', 'ProfesseurController::changePassword
 $routes->get('login/logout', 'Login::logout');
 
 $routes->get('/notes', 'Notes::index');
+$routes->post('notes/submit', 'Notes::submitReclamation');

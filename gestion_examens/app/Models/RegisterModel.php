@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -29,80 +28,75 @@ class RegisterModel extends Model
 
     // Gestionnaires d'événements
     protected $beforeInsert = ['setDefaultRole'];
-    protected $afterInsert = ['createProfesseur'];
+    protected $afterInsert = ['createProfesseur', 'createEtudiant']; // ✅ Ajouter createEtudiant ici
 
     protected function setDefaultRole(array $data)
     {
         if (!isset($data['data']['idRole'])) {
-            // Vérifie si le rôle est "professeur" (assurez-vous que 'role' est dans les données)
             if (isset($data['data']['role']) && strtolower($data['data']['role']) === 'professeur') {
-                $data['data']['idRole'] = 1; // ID de rôle pour "professeur"
+                $data['data']['idRole'] = 1;
             } else {
-                $data['data']['idRole'] = 2; // Rôle par défaut pour "étudiant"
+                $data['data']['idRole'] = 2;
             }
         }
-
         return $data;
     }
 
-    // Insérer un professeur dans la table 'professeur' après l'insertion de l'utilisateur
     protected function createProfesseur(array $data)
     {
-        // Récupérer l'ID de l'utilisateur inséré
-        $idUtilisateur = $data['id'];
-
-        // Vérifier si l'utilisateur a le rôle de professeur
-        if (isset($data['data']['idRole']) && $data['data']['idRole'] === 1) {
-            // Données à insérer dans la table 'professeur'
-            $professeurData = [
-                'idUtilisateur' => $idUtilisateur,
-                'nom' => $data['data']['nom_complet'],  // Par exemple, vous pouvez diviser 'nom_complet' en nom et prénom si vous le souhaitez
-                'prenom' => '',  // Vous pouvez ajouter un champ spécifique pour le prénom si nécessaire
-                'email' => $data['data']['email'],
-                'date' => date('Y-m-d'),  // Date actuelle
-                'departement' => 'Informatique',  // Exemple de département, vous pouvez ajuster selon les besoins
-            ];
-
-            // Insérer dans la table professeur
-            $professeurModel = new ProfesseurModel();
-            $professeurModel->insert($professeurData);
+        if (!isset($data['id']) || !isset($data['data']['idRole']) || $data['data']['idRole'] !== 1) {
+            return $data;
         }
+
+        $idUtilisateur = $data['id'];
+        $nomComplet = $data['data']['nom_complet'];
+        $nomPrenom = explode(' ', $nomComplet, 2);
+        $prenom = $nomPrenom[0];
+        $nom = isset($nomPrenom[1]) ? $nomPrenom[1] : '';
+
+        $professeurModel = new \App\Models\ProfesseurModel();
+        $professeurModel->insert([
+            'idUtilisateur' => $idUtilisateur,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'email' => $data['data']['email'],
+            'date' => date('Y-m-d'),
+            'departement' => 'Informatique',
+        ]);
 
         return $data;
     }
+
     protected function createEtudiant(array $data)
-        {
-            // Récupérer l'ID de l'utilisateur inséré
-            $idUtilisateur = $data['id'];
-
-            // Vérifier si l'utilisateur a le rôle d'étudiant (idRole === 2 ou un autre idRole si nécessaire)
-            if (isset($data['data']['idRole']) && $data['data']['idRole'] === 2) {
-                // Vérifier si l'idFiliere, nom, prenom, et email sont présents dans les données
-                if (isset($data['data']['idFiliere'], $data['data']['nom'], $data['data']['prenom'], $data['data']['email'])) {
-                    // Données à insérer dans la table 'etudiant'
-                    $etudiantData = [
-                        'idUtilisateur' => $idUtilisateur,
-                        'nom' => $data['data']['nom'],          // Récupérer le nom de l'étudiant
-                        'prenom' => $data['data']['prenom'],    // Récupérer le prénom de l'étudiant
-                        'email' => $data['data']['email'],      // Récupérer l'email de l'étudiant
-                        'idFiliere' => $data['data']['idFiliere'], // Récupérer l'ID de la filière
-                    ];
-
-                    // Insérer dans la table 'etudiant'
-                    $etudiantModel = new \App\Models\EtudiantModel();
-                    $etudiantModel->insert($etudiantData);
-                } else {
-                    // Si l'un des champs nécessaires n'est pas présent, on peut retourner une erreur ou une exception
-                    throw new \Exception("Les informations de l'étudiant (nom, prénom, email, et idFiliere) sont requises.");
-                }
-            } else {
-                // Si l'utilisateur n'a pas le rôle d'étudiant, on peut gérer l'erreur
-                throw new \Exception("L'utilisateur n'a pas le rôle d'étudiant.");
-            }
+    {
+        if (!isset($data['id']) || !isset($data['data']['idRole']) || $data['data']['idRole'] !== 2) {
+            return $data;
         }
 
+        $idUtilisateur = $data['id'];
+        $nomComplet = $data['data']['nom_complet'];
+        $email = $data['data']['email'];
 
-    // Vérifier si l'email existe déjà
+        // Séparer le nom et le prénom
+        $nomPrenom = explode(' ', $nomComplet, 2);
+        $prenom = $nomPrenom[0];
+        $nom = isset($nomPrenom[1]) ? $nomPrenom[1] : '';
+
+        // ✅ Assurer que idFiliere est bien défini et non null
+        $idFiliere = 1;
+
+        $etudiantModel = new \App\Models\EtudiantModel();
+        $etudiantModel->insert([
+            'idUtilisateur' => $idUtilisateur,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'email' => $email,
+            'idFiliere' => $idFiliere, // ✅ Correction ici
+        ]);
+
+        return $data;
+    }
+
     public function emailExists($email)
     {
         return $this->where('email', $email)->first();
