@@ -27,12 +27,19 @@ class ReclamationModel extends Model
      */
     public function getAllReclamations()
     {
-        $builder = $this->builder();
-        $builder->select('r.*, e.libelleExamen');
-        $builder->join('examen e', 'r.id_examen = e.idExamen', 'left');
-        $query = $builder->get();
+      $db = \Config\Database::connect();
+        
+      // Écriture de la requête SQL avec jointure explicite
+      $sql = "SELECT r.*, e.libelleExamen 
+              FROM reclamation r
+              LEFT JOIN examen e ON r.id_examen = e.idExamen";
+      
+      // Exécution de la requête
+      $query = $db->query($sql);
+      
+      // Récupérer les résultats sous forme de tableau associatif
+      return $query->getResultArray();
 
-        return $query->getResultArray();
     }
 
     /**

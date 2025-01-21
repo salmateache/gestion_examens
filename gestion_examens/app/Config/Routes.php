@@ -7,10 +7,12 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Login::login');
 
 $routes->get('/dashboard', 'Dashboard::index');
+$routes->get('profile', 'Profile::index2');
 
 $routes->get('login', 'Login::login');
 $routes->post('login/loginAction', 'Login::loginAction');
-
+$routes->post('profile/update2', to: 'Profile::update2');
+$routes->get('/reclamations', 'reclamations::index');
 $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
 $routes->get('profile', 'Profile::index');
