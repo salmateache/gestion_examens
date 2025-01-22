@@ -290,11 +290,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url('reclamations'); ?>">
-          <i class="bi bi-grid"></i>
-          <span>Réclamations</span>
-        </a>
-      </li>
+    <a class="nav-link collapsed" href="<?= base_url(session()->get('role') == 1 ? 'reclamationsProf' : 'reclamations'); ?>">
+        <i class="bi bi-grid"></i>
+        <span>Réclamations</span>
+    </a>
+</li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('profile'); ?>">
           <i class="bi bi-grid"></i>

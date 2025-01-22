@@ -310,8 +310,8 @@
   </li><!-- End Profile Page Nav -->
 
   <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url('reclamations'); ?>">
-        <i class="bi bi-grid"></i>
+  <a class="nav-link collapsed" href="<?= base_url(session()->get('role') == 1 ? 'reclamationsProf' : 'reclamations'); ?>">
+          <i class="bi bi-grid"></i>
           <span>Réclamations</span>
         </a>
       </li>

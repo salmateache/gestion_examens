@@ -289,8 +289,8 @@
   </li><!-- End Profile Page Nav -->
 
   <li class="nav-item">
-  <a class="nav-link collapsed" href="<?= base_url(session()->get('role') == 1 ? 'reclamationsProf' : 'reclamations'); ?>">          
-          <i class="bi bi-grid"></i>
+  <a class="nav-link collapsed" href="<?= base_url(session()->get('role') == 1 ? 'reclamationsProf' : 'reclamations'); ?>">
+         <i class="bi bi-grid"></i>
           <span>Réclamations</span>
         </a>
       </li>
@@ -313,7 +313,7 @@
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-       <li class="breadcrumb-item active">Reclamations</li>
+       <li class="breadcrumb-item active">Réclamations</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -327,52 +327,39 @@
           <h5 class="card-title">Liste des réclamations</h5>
           
           <!-- Table with stripped rows -->
-          <table class="table datatable">
-            <thead>
-              <tr>
-                <th>Reclamations</th>
-                <th>Module</th>
-                <th>Examen</th>
-                <th>Date</th>
-                <th>état</th>
-              </tr>
-            </thead>
-            <tbody>
-     
+      <!-- Table with stripped rows -->
+<table class="table datatable">
+    <thead>
+        <tr>
+            <th>Etudiant Nom</th>
+            <th>Etudiant Prénom</th>
+            <th>Module</th>
+            <th>Examen</th>
+            <th>Note</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($reclamations)) : ?>
+            <?php foreach ($reclamations as $reclamation) : ?>
+                <tr>
+                    <td><?= esc($reclamation['nomEtudiant']) ?></td> <!-- Nom de l'étudiant -->
+                    <td><?= esc($reclamation['prenomEtudiant']) ?></td> <!-- Prénom de l'étudiant -->
+                    <td><?= esc($reclamation['libelleModule']) ?></td> <!-- Module -->
+                    <td><?= esc($reclamation['libelleExamen']) ?></td> <!-- Examen -->
+                    <td><?= esc($reclamation['note']) ?></td> <!-- Note -->
+                    <td><button class="btn btn-primary">Détails</button></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <tr>
+                <td colspan="6" class="text-center">Aucune réclamation trouvée.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<!-- End Table with stripped rows -->
 
-    <?php if (!empty($reclamations)) : ?>
-                    <?php foreach ($reclamations as $reclamation) : ?>
-                        <tr>
-       
-                            <td><?= esc($reclamation['justification']) ?></td>
-                            <td><?= esc($reclamation['nomModule']) ?></td>
-                            <td><?= esc($reclamation['libelleExamen']) ?></td>
-                            <td><?= esc($reclamation['date_reclamation']) ?></td>
-                            <td>
-                                <?php 
-                                    $statutClass = ''; // Par défaut, aucune classe
-                                    if ($reclamation['statut'] === 'En attente') {
-                                        $statutClass = 'badge bg-warning text-dark'; // Jaune
-                                    } elseif ($reclamation['statut'] === 'acceptee') {
-                                        $statutClass = 'badge bg-success'; // Vert
-                                    } elseif ($reclamation['statut'] === 'rejetee') {
-                                        $statutClass = 'badge bg-danger'; // Rouge
-                                    }
-                                ?>
-                                <span class="<?= $statutClass ?>"><?= esc($reclamation['statut']) ?></span>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <tr>
-                        <td colspan="8" class="text-center">Aucune réclamation trouvée.</td>
-                    </tr>
-                <?php endif; ?>
-
-
-               
-            </tbody>
-          </table>
           <!-- End Table with stripped rows -->
 
         </div>

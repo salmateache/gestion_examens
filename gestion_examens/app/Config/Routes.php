@@ -11,7 +11,6 @@ $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('login', 'Login::login');
 $routes->post('login/loginAction', 'Login::loginAction');
 $routes->post('profile/update2', to: 'Profile::update2');
-$routes->get('/reclamations', 'reclamations::index');
 $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
 $routes->get('profile', 'Profile::index');
@@ -26,3 +25,5 @@ $routes->get('login/logout', 'Login::logout');
 
 $routes->get('/notes', 'Notes::index');
 $routes->post('notes/submit', 'Notes::submitReclamation');
+$routes->get('/reclamations', 'Reclamations::index'); // Étudiants
+$routes->get('/reclamationsProf', 'Reclamations::indexProf'); // Professeurs
