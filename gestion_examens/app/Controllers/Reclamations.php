@@ -27,5 +27,25 @@ class Reclamations extends BaseController
     // Charger la vue avec les données
     return view('reclamations', $data);
 }
+public function indexProf()
+{
+    $session = session();
+    $idProfesseur = $session->get('idProfesseur'); // Récupérer l'ID du professeur connecté
+    $role = $session->get('role'); 
+
+    // Vérification de l'accès : l'utilisateur doit être un professeur (role = 1)
+    if (!$idProfesseur || $role != 1) {
+        return redirect()->to('/login')->with('error', 'Accès refusé.');
+    }
+
+    // Charger le modèle des réclamations
+    $reclamationModel = new ReclamationModel();
+    
+    // Récupérer les réclamations des modules enseignés par le professeur
+    $data['reclamations'] = $reclamationModel->getReclamationsProfesseurByIdModule($idProfesseur);
+
+    return view('reclamationsProf', $data);
+}
+
 
 }
