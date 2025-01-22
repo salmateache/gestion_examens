@@ -55,18 +55,43 @@ class ReclamationModel extends Model
 
 
     public function getReclamationsByEtudiant($id_etudiant)
+    {
+        $db = \Config\Database::connect();
+    
+        $sql = "SELECT r.*, 
+                       COALESCE(e.libelleExamen, 'Non spécifié') AS libelleExamen,
+                       COALESCE(m.nomModule, 'Non spécifié') AS nomModule
+                FROM reclamation r
+                LEFT JOIN examen e ON r.id_examen = e.idExamen
+                LEFT JOIN module m ON r.id_module = m.idModule
+                WHERE r.id_etudiant = ?";
+    
+        $query = $db->query($sql, [$id_etudiant]);
+    
+        return $query->getResultArray();
+    }
+    
+
+
+public function getReclamationsProfesseurByIdModule($idProfesseur)
 {
-    $db = \Config\Database::connect();
-
-    $sql = "SELECT r.*, COALESCE(e.libelleExamen, 'Non spécifié') AS libelleExamen
-            FROM reclamation r
-            LEFT JOIN examen e ON r.id_examen = e.idExamen
-            WHERE r.id_etudiant = ?";
-
-    $query = $db->query($sql, [$id_etudiant]);
-
-    return $query->getResultArray();
+    return $this->select('
+            reclamation.*, 
+            module.nomModule AS libelleModule, 
+            etudiant.nom AS nomEtudiant, 
+            etudiant.prenom AS prenomEtudiant, 
+            examen.libelleExamen, 
+            note.note
+        ')
+        ->join('module', 'reclamation.id_module = module.idModule')
+        ->join('etudiant', 'reclamation.id_etudiant = etudiant.idEtudiant')
+        ->join('examen', 'reclamation.id_examen = examen.idExamen', 'left')
+        ->join('note', 'note.idExamen = examen.idExamen AND note.idEtudiant = etudiant.idEtudiant', 'left')
+        ->where('module.idProfesseur', $idProfesseur)
+        ->findAll();
 }
+
+
 
 
 
