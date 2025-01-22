@@ -25,22 +25,22 @@ class ReclamationModel extends Model
      *
      * @return array
      */
-    public function getAllReclamations()
-    {
-      $db = \Config\Database::connect();
-        
-      // Écriture de la requête SQL avec jointure explicite
-      $sql = "SELECT r.*, e.libelleExamen 
-              FROM reclamation r
-              LEFT JOIN examen e ON r.id_examen = e.idExamen";
-      
-      // Exécution de la requête
-      $query = $db->query($sql);
-      
-      // Récupérer les résultats sous forme de tableau associatif
-      return $query->getResultArray();
+   public function getAllReclamations()
+{
+    $db = \Config\Database::connect();
 
-    }
+    // Écriture de la requête SQL avec jointure explicite
+    $sql = "SELECT r.*, COALESCE(e.libelleExamen, 'Non spécifié') AS libelleExamen
+            FROM reclamation r
+            LEFT JOIN examen e ON r.id_examen = e.idExamen";
+    
+    // Exécution de la requête
+    $query = $db->query($sql);
+    
+    // Récupérer les résultats sous forme de tableau associatif
+    return $query->getResultArray();
+}
+
 
     /**
      * Récupérer une réclamation par son ID.
@@ -52,6 +52,23 @@ class ReclamationModel extends Model
     {
         return $this->find($idReclamation);
     }
+
+
+    public function getReclamationsByEtudiant($id_etudiant)
+{
+    $db = \Config\Database::connect();
+
+    $sql = "SELECT r.*, COALESCE(e.libelleExamen, 'Non spécifié') AS libelleExamen
+            FROM reclamation r
+            LEFT JOIN examen e ON r.id_examen = e.idExamen
+            WHERE r.id_etudiant = ?";
+
+    $query = $db->query($sql, [$id_etudiant]);
+
+    return $query->getResultArray();
+}
+
+
 
     /**
      * Ajouter une nouvelle réclamation.

@@ -7,7 +7,6 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Login::login');
 
 $routes->get('/dashboard', 'Dashboard::index');
-$routes->get('profile', 'Profile::index2');
 
 $routes->get('login', 'Login::login');
 $routes->post('login/loginAction', 'Login::loginAction');

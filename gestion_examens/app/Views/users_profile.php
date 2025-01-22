@@ -290,7 +290,14 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('notes'); ?>">
           <i class="bi bi-person"></i>
-          <span>Grades</span>
+          <span>Notes</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?= base_url('reclamations'); ?>">
+          <i class="bi bi-person"></i>
+          <span>Réclamations</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -300,6 +307,7 @@
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
+     
     </ul>
 
   </aside><!-- End Sidebar-->

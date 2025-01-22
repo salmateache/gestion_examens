@@ -9,14 +9,23 @@ use App\Models\ReclamationModel;
 class Reclamations extends BaseController
 {
     public function index()
-    {
-        // Charger le modèle
-        $reclamationModel = new ReclamationModel();
+{
+    // Vérifier si l'utilisateur est connecté et récupérer son ID
+    $session = session();
+    $id_etudiant = $session->get('idEtudiant'); 
 
-        // Récupérer toutes les réclamations
-        $data['reclamations'] = $reclamationModel->getAllReclamations();
-
-        // Charger la vue avec les données
-        return view('reclamations', $data);
+    if (!$id_etudiant) {
+        return redirect()->to('/login'); // Redirection si l'étudiant n'est pas connecté
     }
+
+    // Charger le modèle
+    $reclamationModel = new ReclamationModel();
+
+    // Récupérer les réclamations de l'étudiant connecté
+    $data['reclamations'] = $reclamationModel->getReclamationsByEtudiant($id_etudiant);
+
+    // Charger la vue avec les données
+    return view('reclamations', $data);
+}
+
 }
