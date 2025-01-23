@@ -326,41 +326,123 @@
         <div class="card-body">
           <h5 class="card-title">Liste des réclamations</h5>
           
-          <!-- Table with stripped rows -->
-      <!-- Table with stripped rows -->
-<table class="table datatable">
-    <thead>
-        <tr>
-            <th>Etudiant Nom</th>
+          <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Etudiant Nom</th>
             <th>Etudiant Prénom</th>
             <th>Module</th>
             <th>Examen</th>
             <th>Note</th>
             <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($reclamations)) : ?>
-            <?php foreach ($reclamations as $reclamation) : ?>
-                <tr>
-                    <td><?= esc($reclamation['nomEtudiant']) ?></td> <!-- Nom de l'étudiant -->
+
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (isset($reclamations) && is_array($reclamations) && !empty($reclamations)) : ?>
+                <?php foreach ($reclamations as $reclamation): ?>
+                  <?php if ($reclamation['statut'] == 'En attente') : ?>
+                <tr><td><?= esc($reclamation['nomEtudiant']) ?></td> <!-- Nom de l'étudiant -->
                     <td><?= esc($reclamation['prenomEtudiant']) ?></td> <!-- Prénom de l'étudiant -->
                     <td><?= esc($reclamation['libelleModule']) ?></td> <!-- Module -->
                     <td><?= esc($reclamation['libelleExamen']) ?></td> <!-- Examen -->
                     <td><?= esc($reclamation['note']) ?></td> <!-- Note -->
-                    <td><button class="btn btn-primary">Détails</button></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <tr>
-                <td colspan="6" class="text-center">Aucune réclamation trouvée.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
-<!-- End Table with stripped rows -->
 
-          <!-- End Table with stripped rows -->
+                    <td>
+                        <button 
+                            class="btn btn-primary btn-details"
+                            data-id="<?= esc($reclamation['idReclamation']) ?>"
+                            data-libelle="<?= esc($reclamation['justification']) ?>"
+                            data-lien="<?= site_url('reclamations/download/' . esc($reclamation['idReclamation'])) ?>">                            Détails
+                        </button>
+                    </td>
+                </tr>
+              
+
+                        
+                <?php endif; ?>
+    <?php endforeach; ?>
+<?php else : ?>
+    <tr>
+        <td colspan="6" class="text-center">Aucune réclamation trouvée !</td>
+    </tr>
+<?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reclamationModal" tabindex="-1" aria-labelledby="reclamationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reclamationModalLabel">Détails de la Réclamation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Libellé :</strong> <span id="libelleReclamation"></span></p>
+                    <p><strong>Pièce jointe :</strong> <a id="lienPieceJointe" href="#" target="_blank">Télécharger</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnAcceptee">Acceptée</button>
+                    <button type="button" class="btn btn-danger" id="btnRejetee">Rejetée</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Bootstrap & Fetch -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Event listener pour le bouton "Détails"
+            document.querySelectorAll(".btn-details").forEach(button => {
+                button.addEventListener("click", function () {
+                    const reclamationId = this.dataset.id; // ID de la réclamation
+                    const libelle = this.dataset.libelle; // Libellé
+                    const lienPieceJointe = this.dataset.lien; // Lien de la pièce jointe
+
+                    // Remplir les détails dans la modal
+                    document.getElementById("libelleReclamation").textContent = libelle;
+                    document.getElementById("lienPieceJointe").href = lienPieceJointe;
+
+                    // Afficher la modal
+                    const modal = new bootstrap.Modal(document.getElementById("reclamationModal"));
+                    modal.show();
+
+                    // Gérer les boutons Acceptée et Rejetée
+                    document.getElementById("btnAcceptee").onclick = function () {
+                        updateStatutReclamation(reclamationId, "acceptee");
+                    };
+                    document.getElementById("btnRejetee").onclick = function () {
+                        updateStatutReclamation(reclamationId, "rejetee");
+                    };
+                });
+            });
+        });
+
+        // Fonction pour mettre à jour le statut de la réclamation via AJAX
+        function updateStatutReclamation(id, statut) {
+            fetch("<?= base_url('reclamations/updateStatut'); ?>", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: JSON.stringify({ id: id, statut: statut }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Statut mis à jour avec succès !");
+                    location.reload(); // Recharger la page pour refléter les changements
+                } else {
+                    alert("Erreur lors de la mise à jour du statut !");
+                }
+            })
+            .catch(error => console.error("Erreur:", error));
+        }
+    </script>
 
         </div>
       </div>

@@ -15,6 +15,8 @@ $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update'); // Cette route était doublée
+$routes->post('reclamations/updateStatut', 'Reclamations::updateStatut');
+$routes->get('reclamations/download/(:num)', 'ReclamationsController::download/$1');
 
 // Routes spécifiques pour le professeur
 $routes->post('professeur/profile', 'ProfesseurController::profile');

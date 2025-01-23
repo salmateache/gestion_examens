@@ -46,6 +46,50 @@ public function indexProf()
 
     return view('reclamationsProf', $data);
 }
+public function updateStatut()
+{
+    if ($this->request->isAJAX()) {
+        $data = $this->request->getJSON();
+        $id = $data->id;
+        $statut = $data->statut;
+
+        // Charger le modèle et mettre à jour le statut
+        $model = new ReclamationModel();
+        $update = $model->update($id, ['statut' => $statut]);
+
+        if ($update) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            return $this->response->setJSON(['success' => false]);
+        }
+    }
+
+    throw new \CodeIgniter\Exceptions\PageNotFoundException('Page not found');
+}
+public function download($id)
+{
+    // Charger le modèle
+    $reclamationModel = new \App\Models\ReclamationModel();
+
+    // Récupérer la réclamation
+    $reclamation = $reclamationModel->find($id);
+
+    if ($reclamation && isset($reclamation['piece_joinee'])) {
+        // Récupérer le contenu du fichier depuis la BD
+        $fileContent = $reclamation['piece_joinee'];
+        $fileName = $reclamation['file_name'] ?? 'document'; // Nom du fichier (si disponible)
+        $mimeType = $reclamation['mime_type'] ?? 'application/octet-stream'; // Type MIME
+
+        // Configurer la réponse
+        return $this->response
+            ->setHeader('Content-Type', $mimeType)
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->setBody($fileContent);
+    }
+
+    // Si le fichier n'est pas trouvé, afficher une erreur
+    throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+}
 
 
 }
