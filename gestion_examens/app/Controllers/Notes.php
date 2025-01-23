@@ -49,7 +49,7 @@ class Notes extends Controller
         // Récupérer l'id du module et de l'examen
         $moduleModel = new \App\Models\ModuleModel();
         $examenModel = new \App\Models\ExamenModel();
-
+    
         $moduleResult = $moduleModel->where('nomModule', $module)->first();
         $examenResult = $examenModel->where('libelleExamen', $examen)->first();
         
@@ -58,15 +58,28 @@ class Notes extends Controller
             $idModule = $moduleResult['idModule'];
             $idExamen = $examenResult['idExamen'];
         } else {
-            // Gérer le cas où les modules ou examens ne sont pas trouvés
             log_message('error', 'Module ou examen introuvable.');
             return redirect()->to('/notes')->with('message', 'Erreur : Module ou examen introuvable.');
         }
     
-        // Gérer la pièce jointe (si elle est présente)
+        // Gérer la pièce jointe
         $pieceJointePath = '';
         if ($pieceJointe && $pieceJointe->isValid()) {
-            $pieceJointePath = $pieceJointe->store();  // Enregistre la pièce jointe dans le dossier 'uploads'
+            $newName = $pieceJointe->getRandomName(); // Générer un nom aléatoire pour éviter les conflits
+            $uploadPath = FCPATH . 'assets/uploads/'; // Chemin vers public/assets/uploads/
+    
+            // Vérifier si le dossier existe, sinon le créer
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+    
+            // Déplacer le fichier vers le bon dossier
+            if ($pieceJointe->move($uploadPath, $newName)) {
+                $pieceJointePath = 'assets/uploads/' . $newName; // Stocker le chemin relatif
+            } else {
+                log_message('error', 'Échec du téléchargement de la pièce jointe.');
+                return redirect()->to('/notes')->with('message', 'Erreur lors du téléchargement de la pièce jointe.');
+            }
         }
     
         // Créer une nouvelle réclamation
@@ -78,14 +91,14 @@ class Notes extends Controller
             'justification' => $justification,
             'piece_joinee' => $pieceJointePath,
             'date_reclamation' => date('Y-m-d H:i:s'),
-            'statut' => 'En attente' // Statut initial
+            'statut' => 'En attente'
         ];
     
         // Insérer la réclamation dans la base de données
         $reclamationModel->save($data);
     
-        // Retourner un message de succès
         return redirect()->to('/notes')->with('message', 'Réclamation soumise avec succès');
     }
+    
     
 }

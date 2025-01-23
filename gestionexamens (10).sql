@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 jan. 2025 à 21:43
+-- Généré le : ven. 24 jan. 2025 à 00:05
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.1.12
 
@@ -232,14 +232,10 @@ CREATE TABLE `reclamation` (
 --
 
 INSERT INTO `reclamation` (`idReclamation`, `id_etudiant`, `id_module`, `id_examen`, `justification`, `piece_joinee`, `date_reclamation`, `statut`) VALUES
-(10, 3, 3, 3, 'j\'ai attendé une note mieux que ca', '20250121/1737475595_dba9cad0edcf5fafe40f.png', '2025-01-21 15:06:35', 'En attente'),
-(12, 1, 2, 1, 'reclamation importatnte', '20250121/1737475977_b257f6b4ae0374ed341f.jpg', '2025-01-21 15:12:57', 'En attente'),
-(13, 1, 2, 4, 'merci', '20250121/1737476280_c8f8482ebd2848c4dde3.docx', '2025-01-21 15:18:00', 'En attente'),
-(14, 1, 2, 1, 'uiéuyeéhjn', '20250121/1737476641_f5cf5ddd91864643b30d.png', '2025-01-21 15:24:01', 'En attente'),
-(15, 1, 2, 4, 'oizuhjbn', '20250121/1737476793_431cfc410ceb3f17c669.png', '2025-01-21 15:26:33', 'En attente'),
-(16, 1, 1, 1, 'oiuyuhjsaz', '20250121/1737476867_fd2926659a7b891f118e.png', '2025-01-21 15:27:47', 'En attente'),
-(17, 1, 2, 1, 'justification sur la reclamation', '20250121/1737488895_22cdc140aed29f650c6e.png', '2025-01-21 18:48:15', 'En attente'),
-(18, 1, 1, 1, 'piuoiygfhgj', '20250121/1737488997_808cf85b2a9f124dd6b9.png', '2025-01-21 18:49:57', 'En attente');
+(28, 1, 2, 4, 'LPKOJIHUYGTVGX', 'assets/uploads/1737673029_4f876fb8dcc8f8a9759b.pdf', '2025-01-23 21:57:09', 'En attente'),
+(29, 1, 1, 1, 'Reclamation sur une note', 'assets/uploads/1737673263_a1e443afc1dc7cf6d00f.docx', '2025-01-23 22:01:03', 'En attente'),
+(30, 1, 2, 1, 'reclamation sue la note de l\'examen final', 'assets/uploads/1737673330_96fb7950ad46f7398315.png', '2025-01-23 22:02:10', 'acceptee'),
+(31, 3, 2, 4, 'reclamation', 'assets/uploads/1737673368_258c85d038b63e45966f.png', '2025-01-23 22:02:48', 'rejetee');
 
 -- --------------------------------------------------------
 
@@ -422,7 +418,7 @@ ALTER TABLE `professeur`
 -- AUTO_INCREMENT pour la table `reclamation`
 --
 ALTER TABLE `reclamation`
-  MODIFY `idReclamation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idReclamation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `role`
