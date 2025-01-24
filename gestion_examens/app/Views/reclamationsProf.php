@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Notes</title>
+  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -16,23 +16,18 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <!-- Vendor CSS Files -->
- <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/boxicons/css/boxicons.min.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/quill/quill.snow.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/quill/quill.bubble.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/simple-datatables/style.css') ?>" rel="stylesheet">
-
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
- 
-    <!-- Ajouter jQuery avant tout autre script qui l'utilise -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <link href="assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -45,27 +40,12 @@
 
 <body>
 
-<?php if(session()->has('success')): ?>
-    <div class="alert alert-success">
-        <?= session('success') ?>
-    </div>
-<?php endif; ?>
-
-
-<?php if(session()->getFlashdata('message')): ?>
-    <div class="alert alert-info">
-        <?= session()->getFlashdata('message') ?>
-    </div>
-<?php endif; ?>
-
-
-
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="<?= base_url('/dashboard'); ?>" class="logo d-flex align-items-center">
-        <img src="<?= base_url('assets/img/logo.jpg') ?>" alt="">
+        <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My exams</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -180,7 +160,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="<?= base_url('assets/img/messages-1.jpg') ?>" alt="" class="rounded-circle">
+                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>Maria Hudson</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -194,7 +174,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="<?= base_url('assets/img/messages-2.jpg') ?>" alt="" class="rounded-circle">
+                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>Anna Nelson</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -208,7 +188,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="<?= base_url('assets/img/messages-3.jpg') ?>" alt="" class="rounded-circle">
+                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>David Muldon</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -230,8 +210,8 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="<?= base_url('assets/img/profile-img.jpg') ?>" alt="Profile" class="rounded-circle">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?= session()->get('username'); ?></span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -250,13 +230,12 @@
                 <span>My Profile</span>
               </a>
             </li>
-            
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="<?= base_url('profile'); ?>">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -303,7 +282,7 @@
     </a>
 
   <li class="nav-item">
-    <a class="nav-link " href="<?= base_url('notes') ?> ">
+    <a class="nav-link collapsed" href="<?= base_url('notes') ?> ">
     <i class="bi bi-grid"></i>
       <span>Notes</span>
     </a>
@@ -311,10 +290,11 @@
 
   <li class="nav-item">
   <a class="nav-link collapsed" href="<?= base_url(session()->get('role') == 1 ? 'reclamationsProf' : 'reclamations'); ?>">
-          <i class="bi bi-grid"></i>
+         <i class="bi bi-grid"></i>
           <span>Réclamations</span>
         </a>
       </li>
+
   <li class="nav-item">
     <a class="nav-link collapsed" href="<?= base_url('profile'); ?>">
     <i class="bi bi-grid"></i>
@@ -329,11 +309,11 @@
 <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Notes</h1>
+  <h1>Reclamations</h1>
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-       <li class="breadcrumb-item active">Notes</li>
+       <li class="breadcrumb-item active">Réclamations</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -344,109 +324,125 @@
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Liste des notes</h5>
+          <h5 class="card-title">Liste des réclamations</h5>
           
-          <!-- Table with stripped rows -->
-<!-- Table with stripped rows -->
-<table class="table datatable">
-  <thead>
+          <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Etudiant Nom</th>
+            <th>Etudiant Prénom</th>
+            <th>Module</th>
+            <th>Examen</th>
+            <th>Note</th>
+            <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (isset($reclamations) && is_array($reclamations) && !empty($reclamations)) : ?>
+                <?php foreach ($reclamations as $reclamation): ?>
+                  <?php if ($reclamation['statut'] == 'En attente') : ?>
+                <tr><td><?= esc($reclamation['nomEtudiant']) ?></td> <!-- Nom de l'étudiant -->
+                    <td><?= esc($reclamation['prenomEtudiant']) ?></td> <!-- Prénom de l'étudiant -->
+                    <td><?= esc($reclamation['libelleModule']) ?></td> <!-- Module -->
+                    <td><?= esc($reclamation['libelleExamen']) ?></td> <!-- Examen -->
+                    <td><?= esc($reclamation['note']) ?></td> <!-- Note -->
+
+                    <td>
+                        <button 
+                            class="btn btn-primary btn-details"
+                            data-id="<?= esc($reclamation['idReclamation']) ?>"
+                            data-libelle="<?= esc($reclamation['justification']) ?>"
+                            data-lien="<?= esc($reclamation['piece_joinee'])?>">                           Détails
+                        </button>
+                    </td>
+                </tr>
+              
+
+                        
+                <?php endif; ?>
+    <?php endforeach; ?>
+<?php else : ?>
     <tr>
-      <th>Module</th>
-      <th>Examen</th>
-      <th>Note</th>
-      <th>Commentaire</th>
-      <th>Action</th>
+        <td colspan="6" class="text-center">Aucune réclamation trouvée !</td>
     </tr>
-  </thead>
-  <tbody>
-    <?php if (!empty($notes)): ?>
-      <?php foreach ($notes as $note): ?>
-        <tr>
-          <td><?= esc($note['nomModule']) ?></td>
-          <td><?= esc($note['libelleExamen']) ?></td>
-          <td><?= esc($note['note']) ?></td>
-          <td><?= esc($note['commentaire']) ?></td>
-          <td>
-            <!-- Button to open the modal -->
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reclamationModal" 
-              data-module="<?= esc($note['nomModule']) ?>"
-              data-examen="<?= esc($note['libelleExamen']) ?>"
-              data-id="<?= esc($note['idEtudiant']) ?>">
-                Soumettre une réclamation
-            </button>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    <?php else: ?>
-      <tr>
-        <td colspan="5" class="text-center">Aucune note disponible.</td>
-      </tr>
-    <?php endif; ?>
-  </tbody>
-</table>
-<!-- End Table with stripped rows -->
-
-<script>
-    $(document).ready(function() {
-        $('#reclamationModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Le bouton qui a déclenché l'ouverture du modal
-
-            // Récupérer directement les valeurs des attributs data-*
-            var module = button.data('module'); 
-            var examen = button.data('examen');
-            var idEtudiant = button.data('id');
-
-            // Injecter les valeurs dans les champs du formulaire
-            var modal = $(this);
-            modal.find('#module').val(module);
-            modal.find('#examen').val(examen);
-            modal.find('#id_etudiant').val(idEtudiant);
-
-            // DEBUG : Vérifier les valeurs dans la console
-            console.log('Module:', module);
-            console.log('Examen:', examen);
-            console.log('ID étudiant:', idEtudiant);
-        });
-    });
-</script>
-
-<!-- Modal -->
-<div class="modal fade" id="reclamationModal" tabindex="-1" aria-labelledby="reclamationModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="reclamationModalLabel">Soumettre une réclamation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form id="reclamationForm" action="<?= base_url('notes/submit') ?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="module" id="module">
-        <input type="hidden" name="examen" id="examen">
-        <input type="hidden" name="id_etudiant" value="<?= session()->get('idEtudiant') ?>">
-
-        <div class="mb-3">
-          <label for="justification" class="form-label">Justification</label>
-          <textarea class="form-control" id="justification" name="justification" rows="4" required></textarea>
-        </div>
-
-        <div class="mb-3">
-          <label for="pieceJointe" class="form-label">Ajouter une pièce jointe</label>
-          <input class="form-control" type="file" id="pieceJointe" name="pieceJointe">
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary">Soumettre</button>
-        </div>
-      </form>
-
-      </div>
+<?php endif; ?>
+            </tbody>
+        </table>
     </div>
-  </div>
-</div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="reclamationModal" tabindex="-1" aria-labelledby="reclamationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reclamationModalLabel">Détails de la Réclamation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Justification :</strong> <span id="libelleReclamation"></span></p>
+                    <p><strong>Pièce jointe :</strong> <a id="lienPieceJointe" href="#" download>📥 Télécharger</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnAcceptee">Acceptée</button>
+                    <button type="button" class="btn btn-danger" id="btnRejetee">Rejetée</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-          <!-- End Table with stripped rows -->
+    <!-- JS Bootstrap & Fetch -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Event listener pour le bouton "Détails"
+            document.querySelectorAll(".btn-details").forEach(button => {
+                button.addEventListener("click", function () {
+                    const reclamationId = this.dataset.id; // ID de la réclamation
+                    const libelle = this.dataset.libelle; // Libellé
+                    const lienPieceJointe = this.dataset.lien; // Lien de la pièce jointe
+
+                    // Remplir les détails dans la modal
+                    document.getElementById("libelleReclamation").textContent = libelle;
+                    document.getElementById("lienPieceJointe").href = lienPieceJointe;
+
+                    // Afficher la modal
+                    const modal = new bootstrap.Modal(document.getElementById("reclamationModal"));
+                    modal.show();
+
+                    // Gérer les boutons Acceptée et Rejetée
+                    document.getElementById("btnAcceptee").onclick = function () {
+                        updateStatutReclamation(reclamationId, "acceptee");
+                    };
+                    document.getElementById("btnRejetee").onclick = function () {
+                        updateStatutReclamation(reclamationId, "rejetee");
+                    };
+                });
+            });
+        });
+
+        // Fonction pour mettre à jour le statut de la réclamation via AJAX
+        function updateStatutReclamation(id, statut) {
+            fetch("<?= base_url('reclamations/updateStatut'); ?>", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: JSON.stringify({ id: id, statut: statut }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Statut mis à jour avec succès !");
+                    location.reload(); // Recharger la page pour refléter les changements
+                } else {
+                    alert("Erreur lors de la mise à jour du statut !");
+                }
+            })
+            .catch(error => console.error("Erreur:", error));
+        }
+    </script>
 
         </div>
       </div>
@@ -485,9 +481,7 @@
 <script src="<?= base_url('assets/vendor/php-email-form/validate.js') ?>"></script>
 
   <!-- Template Main JS File -->
-  <script src="<?= base_url('assets/js/main.js') ?>"></script>
-
-
+  <script src="assets/js/main.js"></script>
 
 </body>
 
