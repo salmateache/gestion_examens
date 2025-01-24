@@ -14,6 +14,7 @@ $routes->post('profile/update2', to: 'Profile::update2');
 $routes->get('register', 'Register::register');
 $routes->post('register/createAccount', 'Register::createAccount');
 $routes->get('profile', 'Profile::index');
+
 $routes->post('profile/update', 'Profile::update'); // Cette route était doublée
 $routes->post('reclamations/updateStatut', 'Reclamations::updateStatut');
 $routes->get('reclamations/download/(:num)', 'ReclamationsController::download/$1');
@@ -24,6 +25,10 @@ $routes->post('professeur/updateProfile', 'ProfesseurController::updateProfile')
 $routes->post('professeur/changePassword', 'ProfesseurController::changePassword');
 
 $routes->get('login/logout', 'Login::logout');
+
+// Afficher le profil du professeur
+$routes->get('professeur', 'ProfesseurController::index');
+
 
 $routes->get('/notes', 'Notes::index');
 $routes->post('notes/submit', 'Notes::submitReclamation');
